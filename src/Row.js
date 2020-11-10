@@ -31,19 +31,23 @@ function Row({ title, fetchUrl, isLargeRow }) {
   };
 
   const handleClick = (movie) => {
-    if(trailerUrl){
+    // console.log('i m clicked handleclick');
+    // console.log(movie);
+    if (trailerUrl) {
       setTrailerUrl('');
+      // console.log('this is the trailer url ' + trailerUrl);
     } else {
-      movieTrailer(movie?.name ||'' )
+      movieTrailer(movie?.name || '')
         .then((url) => {
           // zrn7V3bMJvg
-          const urlParams = new URLSearchParams (new URL(url).search);
+          const urlParams = new URLSearchParams(new URL(url).search);
           // console.log(urlParams);
           setTrailerUrl(urlParams.get('v'));
-          // console.log(urlParams);
-        }).catch((error) => console.log(error));
+          // console.log(trailerUrl);
+        })
+        .catch((error) => console.log(error));
     }
-  }
+  };
 
   // console.log(movies);
 
@@ -65,10 +69,8 @@ function Row({ title, fetchUrl, isLargeRow }) {
           />
         ))}
       </div>
-      
-      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
 
-      
+      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
     </div>
   );
 }
